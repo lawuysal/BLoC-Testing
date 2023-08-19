@@ -6,15 +6,22 @@ class CounterBloc {
   int _counter = 0;
 
   final _counterStateController = StreamController<int>();
-  StreamSink<int> get _inCounter => _counterStateController.sink;
+  StreamSink<int> get _inCounter {
+    return _counterStateController.sink;
+  }
+
   // For state, exposing only a stream which outputs data
   // Widgets will listen to this stream to get data (state)
-  Stream<int> get counter => _counterStateController.stream;
+  Stream<int> get counter {
+    return _counterStateController.stream;
+  }
 
   final _counterEventController = StreamController<CounterEvent>();
   // For events, exposing only a sink which is an input
   // UI will use this sink to put events into
-  Sink<CounterEvent> get counterEventSink => _counterEventController.sink;
+  Sink<CounterEvent> get counterEventSink {
+    return _counterEventController.sink;
+  }
 
   CounterBloc() {
     // Whenever there is a new event (increment/decrement), we want to map it to a new state
