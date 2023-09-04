@@ -1,2 +1,2 @@
 # BLoC-Testing
-Trying to learn BLoC development pattern with Flutter BLoc library.
+Trying to learn BLoC development pattern with Flutter BLoC library.
