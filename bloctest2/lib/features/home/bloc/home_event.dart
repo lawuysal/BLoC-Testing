@@ -8,9 +8,18 @@ sealed class HomeEvent {}
 /// This event will be responsible for three starting states of the app: loading, success, error
 class HomeInitialEvent extends HomeEvent {}
 
-class HomeProductWishlistButtonClickedEvent extends HomeEvent {}
+/// We're using events to send data
+class HomeProductWishlistButtonClickedEvent extends HomeEvent {
+  final ProductDataModel clickedProduct;
 
-class HomeProductCartButtonClickedEvent extends HomeEvent {}
+  HomeProductWishlistButtonClickedEvent({required this.clickedProduct});
+}
+
+class HomeProductCartButtonClickedEvent extends HomeEvent {
+  final ProductDataModel clickedProduct;
+
+  HomeProductCartButtonClickedEvent({required this.clickedProduct});
+}
 
 class HomeNavigateToWishlistClickedEvent extends HomeEvent {}
 
