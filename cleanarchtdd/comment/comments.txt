@@ -8,7 +8,7 @@ The mock API that we created returns 4 fields as data so we need to add these fi
 We're adding repositories folder to domain folder and creating the authentication_repository file.
 This will act as a contract and this will be a interface kinda since there is no interface feature in dart.
 We're adding the "createUser" method's blueprint here.
-It'll recieve 3 parameters excluding id becuse it will be created by the server.
+It'll recieve 3 parameters excluding id because it will be created by the server.
 Since we don't want a returned data, we will be using Future<void> type as return type.
 Then we're adding "getUsers" method and it will return list of users.
 Also since server can return with an error we have to be aware of these return types and we should add another return type in case of errors.
@@ -16,6 +16,21 @@ Also since server can return with an error we have to be aware of these return t
 We have to deal with errors individually and they will be seperated from domain layer. 
 We will create a failure file and we will create our interface there.
 And we have to implement different failures as where did it happen. Like cache or API.
-While we write our failure's type to code we should'nt indicate what kind of failure of its. Becuse we can change our code so we need to use loose coupling.
+While we write our failure's type to code we should'nt indicate what kind of failure of its. Because we can change our code so we need to use loose coupling.
 
 Since we use so much in the return type it became long. So we can shorten it with type definitions.
+
+We should use use cases to define funcionality to our repository methods.
+In the usescases folder we're creating "create_user" file to add funcionality. 
+Since this method depends on the authentication_repository, CreateUser class should take repository as a parameter.
+So we can implement the singularity to our project. Clean architecture!
+
+Use case of the method can differ so we shhould explicitly show it. 
+There will be methods that can take parameters or not.
+If we add a call function to a class now we can use intances of class to directly call the call method.
+
+Since we created usescase types we can extend our usecases with these.
+And we invoke repository's methods with this call method.
+
+We don't test interfaces because of they're contracts and we don't test entities because they are the blueprints.
+We actually test usecases in domain layer.
