@@ -1,0 +1,21 @@
+We used src instead of features folder but anyways we will be adding our features here.
+Our first feature will be "authentication" and we're adding it to our src folder.
+We're always starting with the domain layer for a feature.
+We'll be using this domain layer to fetch users, add users ect.
+Then we're creating another folder named entities and we will be adding User class there.
+The mock API that we created returns 4 fields as data so we need to add these fields to our user class.
+
+We're adding repositories folder to domain folder and creating the authentication_repository file.
+This will act as a contract and this will be a interface kinda since there is no interface feature in dart.
+We're adding the "createUser" method's blueprint here.
+It'll recieve 3 parameters excluding id becuse it will be created by the server.
+Since we don't want a returned data, we will be using Future<void> type as return type.
+Then we're adding "getUsers" method and it will return list of users.
+Also since server can return with an error we have to be aware of these return types and we should add another return type in case of errors.
+
+We have to deal with errors individually and they will be seperated from domain layer. 
+We will create a failure file and we will create our interface there.
+And we have to implement different failures as where did it happen. Like cache or API.
+While we write our failure's type to code we should'nt indicate what kind of failure of its. Becuse we can change our code so we need to use loose coupling.
+
+Since we use so much in the return type it became long. So we can shorten it with type definitions.
