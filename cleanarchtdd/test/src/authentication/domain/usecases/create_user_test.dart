@@ -10,9 +10,7 @@ import 'package:cleanarchtdd/src/authentication/domain/usecases/create_user.dart
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-
-class MockAuthenticationRepository extends Mock
-    implements AuthenticationRepository {}
+import 'authentication_repository.mock.dart';
 
 void main() {
   late CreateUser usecase;
