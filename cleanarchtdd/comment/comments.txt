@@ -49,3 +49,9 @@ Arrange(Stub or Hijack), Act and Assert.
 Then we create an instance of our class named usecase... and we will initialize it later with setUp method.
 While we stubbing we use when function and we send parameters as any() method. But we must initialize the resgisterFallbackValue with non-native objects if we use them. 
 We should use thenAnswer method to return.
+Then we must call our usecase method with its empty parameters and assign its return to a variable. 
+
+Finally we can test with expect() method. It takes 2 parameters first one is what actually returned and second one is what we expect.
+Then we use verify() method to actually verify if our usecase method called the repo.createUser method. And we can add called() method next to it so we can verify how many times it called.
+
+At the end we need to ensure that nothing is interacted with our repository.
