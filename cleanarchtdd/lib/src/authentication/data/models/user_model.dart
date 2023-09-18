@@ -34,10 +34,10 @@ class UserModel extends User {
 
   DataMap toMap() {
     return <String, dynamic>{
-      'id': id,
       'createdAt': createdAt,
       'name': name,
       'avatar': avatar,
+      'id': id,
     };
   }
 

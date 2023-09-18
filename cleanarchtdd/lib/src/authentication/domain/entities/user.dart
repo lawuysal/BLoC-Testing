@@ -20,5 +20,5 @@ class User extends Equatable {
             avatar: '_empty_avatar');
 
   @override
-  List<Object?> get props => [id, createdAt, name];
+  List<Object?> get props => [id, avatar, name];
 }

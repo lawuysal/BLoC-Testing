@@ -63,3 +63,7 @@ Inside the data folder we're creating a models folder and this will contain our 
 We have our user entity but it's kinda a blueprint. Actual implememntation of it is this model.
 Our [UserModel] must extend the [User]. And we'll use super on constructors.
 Then we have to write our toJson, fromJson, toMap, fromMap and copyWith methods.
+Now it's time to test our [UserModel].
+There's no dependency on our model now. So we need to start without mocking anything.
+Actually we have to define a fake json file to use it on tests. So it'll be so easy.
+We're creating [fixtures] folder inside of tests folder. And we have to create its reader file too.
