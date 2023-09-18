@@ -55,3 +55,11 @@ Finally we can test with expect() method. It takes 2 parameters first one is wha
 Then we use verify() method to actually verify if our usecase method called the repo.createUser method. And we can add called() method next to it so we can verify how many times it called.
 
 At the end we need to ensure that nothing is interacted with our repository.
+
+We actually done with domain layer.
+Now we will create a data layer inside of authentication folder. 
+Inside the data folder we're creating a models folder and this will contain our entities' models.
+
+We have our user entity but it's kinda a blueprint. Actual implememntation of it is this model.
+Our [UserModel] must extend the [User]. And we'll use super on constructors.
+Then we have to write our toJson, fromJson, toMap, fromMap and copyWith methods.
