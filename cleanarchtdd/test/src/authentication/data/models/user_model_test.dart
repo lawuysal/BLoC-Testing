@@ -49,4 +49,13 @@ void main() {
       expect(result, equals(testJson));
     });
   });
+
+  test('should return correct "given" values', () {
+    // Act
+    final result1 = testModel.copyWith(name: "Laura");
+    final result2 = testModel.copyWith(avatar: "LoL");
+    // Assert
+    expect(result1.name, equals("Laura"));
+    expect(result2.avatar, equals("LoL"));
+  });
 }
