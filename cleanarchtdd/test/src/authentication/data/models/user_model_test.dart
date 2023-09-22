@@ -8,12 +8,17 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
-  const testModel = UserModel.empty();
-  final testJson = fixture('user.json');
-  final testMap = jsonDecode(testJson) as DataMap;
+  late UserModel testModel;
+  late String testJson;
+  late DataMap testMap;
+
+  setUp(() {
+    testModel = const UserModel.empty();
+    testJson = fixture('user.json');
+    testMap = jsonDecode(testJson) as DataMap;
+  });
 
   test('should be a subclass of entity [User]', () {
-    // Arrange (Stub)
     // Assert
     expect(testModel, equals(isA<User>()));
   });

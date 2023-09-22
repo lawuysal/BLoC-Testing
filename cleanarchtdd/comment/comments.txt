@@ -67,3 +67,12 @@ Now it's time to test our [UserModel].
 There's no dependency on our model now. So we need to start without mocking anything.
 Actually we have to define a fake json file to use it on tests. So it'll be so easy.
 We're creating [fixtures] folder inside of tests folder. And we have to create its reader file too.
+
+Our next step will be repository implememntation. 
+This implememntation will include the bodies of our blueprint methods.
+Repository implememntation talks with datasource and datasource talks with external resources like APIs.
+Our datasource name will be "Authentication Remote Data Source". It's remote because it'll talk with API. 
+This data source will be a abstract too. And it will contain our head methods createUser and getUsers.
+But their return types will be different now. They will return only correct values and they will throw exceptions. 
+These exceptions will be caught by repository implememntation.
+Also we need to use models instead of entities in return types. Because we want it to be loose as possible.
