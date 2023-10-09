@@ -1,24 +1,38 @@
 part of 'list_bloc.dart';
 
 sealed class ListState extends Equatable {
-  const ListState();
+  const ListState(this.itemList);
+
+  final List<String> itemList;
 
   @override
   List<Object> get props => [];
 }
 
-sealed class ListActionState extends ListState {}
-
-final class ListInitial extends ListState {}
-
-class ListLoadingState extends ListState {}
-
-class ListLoadedSuccessState extends ListState {
-  final items = const ItemList(items: []);
+sealed class ListActionState extends ListState {
+  const ListActionState(super.itemList);
 }
 
-class ListLoadedFailedState extends ListState {}
+final class ListInitial extends ListState {
+  const ListInitial(super.itemList);
+}
 
-class ListItemAddedState extends ListActionState {}
+class ListLoadingState extends ListState {
+  const ListLoadingState(super.itemList);
+}
 
-class ListItemRemovedState extends ListActionState {}
+class ListLoadedSuccessState extends ListState {
+  const ListLoadedSuccessState(super.itemList);
+}
+
+class ListLoadedFailedState extends ListState {
+  const ListLoadedFailedState(super.itemList);
+}
+
+class ListItemAddedState extends ListActionState {
+  const ListItemAddedState(super.itemList);
+}
+
+class ListItemRemovedState extends ListActionState {
+  const ListItemRemovedState(super.itemList);
+}

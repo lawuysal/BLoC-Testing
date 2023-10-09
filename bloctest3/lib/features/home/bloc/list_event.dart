@@ -10,13 +10,13 @@ sealed class ListEvent extends Equatable {
 class InitialListEvent extends ListEvent {}
 
 class ClickedAddToListEvent extends ListEvent {
-  final List<String> items;
+  final List<String> itemList;
 
-  const ClickedAddToListEvent({required this.items});
+  const ClickedAddToListEvent({required this.itemList});
 }
 
 class ClickedDeleteFromListEvent extends ListEvent {
-  final List<String> items;
+  final List<String> itemList;
 
-  const ClickedDeleteFromListEvent({required this.items});
+  const ClickedDeleteFromListEvent({required this.itemList});
 }
