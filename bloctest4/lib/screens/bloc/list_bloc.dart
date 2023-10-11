@@ -8,7 +8,7 @@ part 'list_event.dart';
 part 'list_state.dart';
 
 class ListBloc extends Bloc<ListEvent, ListState> {
-  ListBloc() : super(const ListInitial(itemList: ["lel", "kek"])) {
+  ListBloc() : super(const ListInitial(itemList: [])) {
     on<InitialListEvent>(initialListEvent);
     on<ClickedAddToListButtonEvent>(clickedAddToListButtonEvent);
     on<ClickedRemoveButtonEvent>(clickedRemoveButtonEvent);
