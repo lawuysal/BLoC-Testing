@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
                               final newItem = myTextController.text;
                               List<String> tempList = List.from(state.itemList);
                               tempList.add(newItem);
+                              myTextController.clear();
                               context.read<ListBloc>().add(
                                   ClickedAddToListEvent(itemList: tempList));
                               debugPrint(state.itemList.toString());

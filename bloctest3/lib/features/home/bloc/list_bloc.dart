@@ -39,5 +39,6 @@ class ListBloc extends Bloc<ListEvent, ListState> {
 
     emit(ListItemRemovedState(event.itemList));
     emit(ListLoadedSuccessState(state.itemList));
+    debugPrint(state.itemList.toString());
   }
 }
