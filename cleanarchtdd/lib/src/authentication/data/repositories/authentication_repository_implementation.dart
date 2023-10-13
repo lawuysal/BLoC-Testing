@@ -1,3 +1,5 @@
+import 'package:cleanarchtdd/core/errors/exceptions.dart';
+import 'package:cleanarchtdd/core/errors/failure.dart';
 import 'package:cleanarchtdd/core/utils/typedef.dart';
 import 'package:cleanarchtdd/src/authentication/data/datasources/authentication_remote_data_source.dart';
 import 'package:cleanarchtdd/src/authentication/domain/entities/user.dart';
@@ -20,13 +22,17 @@ class AuthenticationRepositoryImplementation
     /// if it doesn't throw exception, make sure it returns proper data
     /// if it throws exceptition, we return a failure
 
-    await _remoteDataSource.createUser(
-      createdAt: createdAt,
-      name: name,
-      avatar: avatar,
-    );
+    try {
+      await _remoteDataSource.createUser(
+        createdAt: createdAt,
+        name: name,
+        avatar: avatar,
+      );
 
-    return const Right(null);
+      return const Right(null);
+    } on APIException catch (e) {
+      return Left(ApiFailure(message: e.message, statusCode: e.statusCode));
+    }
   }
 
   @override
