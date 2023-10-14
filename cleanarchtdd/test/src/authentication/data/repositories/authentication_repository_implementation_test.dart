@@ -1,7 +1,9 @@
 import 'package:cleanarchtdd/core/errors/exceptions.dart';
 import 'package:cleanarchtdd/core/errors/failure.dart';
 import 'package:cleanarchtdd/src/authentication/data/datasources/authentication_remote_data_source.dart';
+import 'package:cleanarchtdd/src/authentication/data/models/user_model.dart';
 import 'package:cleanarchtdd/src/authentication/data/repositories/authentication_repository_implementation.dart';
+import 'package:cleanarchtdd/src/authentication/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -61,7 +63,8 @@ void main() {
       },
     );
 
-    test("should return a [ServerFailure] value when call to the remote",
+    test(
+        "should return a [APIFailure] when call to the remote, source is unsuccessfull",
         () async {
       // stubbing
       when(
@@ -81,7 +84,7 @@ void main() {
         result,
         equals(
           Left(
-            ApiFailure(
+            APIFailure(
                 message: testException.message,
                 statusCode: testException.statusCode),
           ),
@@ -91,6 +94,40 @@ void main() {
       verify(() => remoteDataSource.createUser(
           createdAt: createdAt, name: name, avatar: avatar)).called(1);
       verifyNoMoreInteractions(remoteDataSource);
+    });
+
+    group("getUsers", () {
+      test("It should return a successfull list of UserModel.", () async {
+        const expectedUsers = [UserModel.empty()];
+        // stubbing
+        /// Do not make this async
+        when(
+          () {
+            return remoteDataSource.getUsers();
+          },
+        ).thenAnswer((_) async => expectedUsers);
+        // act
+        final result = await authRepoImpl.getUsers();
+        // assert
+        expect(result, isA<Right<dynamic, List<User>>>());
+        verify(() => remoteDataSource.getUsers()).called(1);
+        verifyNoMoreInteractions(remoteDataSource);
+      });
+
+      test(
+          "should return a [APIFailure] when call to the remote, source is unsuccessfull",
+          () async {
+        // stub
+        when(
+          () => remoteDataSource.getUsers(),
+        ).thenThrow(testException);
+        // act
+        final result = await authRepoImpl.getUsers();
+        // assert
+        expect(result, Left(APIFailure.fromException(testException)));
+        verify(() => remoteDataSource.getUsers()).called(1);
+        verifyNoMoreInteractions(remoteDataSource);
+      });
     });
   });
 }
