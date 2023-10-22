@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cleanarchtdd/core/errors/exceptions.dart';
 import 'package:cleanarchtdd/core/utils/constants.dart';
 import 'package:cleanarchtdd/src/authentication/data/datasources/authentication_remote_data_source.dart';
-import 'package:flutter/services.dart';
+import 'package:cleanarchtdd/src/authentication/data/models/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
@@ -47,9 +47,7 @@ void main() {
 
       verify(
         () => client.post(
-          Uri.parse(
-            '$kBaseUrl$kCreateUserEndpoint',
-          ),
+          Uri.https(kBaseUrl, kCreateUserEndpoint),
           body: jsonEncode(
             {
               'createdAt': 'createdAt',
@@ -93,7 +91,7 @@ void main() {
 
       verify(
         () => client.post(
-          Uri.parse('$kBaseUrl$kCreateUserEndpoint'),
+          Uri.https(kBaseUrl, kCreateUserEndpoint),
           body: jsonEncode(
             {
               'createdAt': 'createdAt',
@@ -107,4 +105,60 @@ void main() {
       verifyNoMoreInteractions(client);
     });
   }); //
+
+  group('getUsers', () {
+    const testList = [UserModel.empty()];
+    test('Should return a [List<UserModel>] when the status code is 200',
+        () async {
+      // stubbing
+      when(
+        () => client.get(
+          any(),
+        ),
+      ).thenAnswer((_) async =>
+          http.Response(jsonEncode([testList.first.toMap()]), 200));
+
+      // act
+      final result = await remoteDataSource.getUsers();
+
+      // assert
+      expect(result, equals(testList));
+
+      verify(() => client.get(Uri.https(kBaseUrl, kGetUsersEndpoint)))
+          .called(1);
+      verifyNoMoreInteractions(client);
+    });
+    test('Should throw an [APIException] when the status code is not 200',
+        () async {
+      // stubbing
+      when(() => client.get(any())).thenAnswer(
+        (_) async => http.Response(
+          'Server is down',
+          505,
+        ),
+      );
+
+      // act
+      final methodCall = remoteDataSource.getUsers;
+
+      // assert
+      expect(
+        () => methodCall(),
+        throwsA(
+          const APIException(
+            message: 'Server is down',
+            statusCode: 505,
+          ),
+        ),
+      );
+
+      verify(
+        () => client.get(
+          Uri.https(kBaseUrl, kGetUsersEndpoint),
+        ),
+      ).called(1);
+
+      verifyNoMoreInteractions(client);
+    });
+  });
 }
