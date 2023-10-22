@@ -139,11 +139,11 @@ void main() {
       );
 
       // act
-      final methodCall = remoteDataSource.getUsers;
+      final result = remoteDataSource.getUsers;
 
       // assert
       expect(
-        () => methodCall(),
+        () => result(),
         throwsA(
           const APIException(
             message: 'Server is down',

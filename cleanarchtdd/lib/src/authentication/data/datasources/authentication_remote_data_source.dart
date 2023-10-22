@@ -61,11 +61,9 @@ class AuthenticationRemoteDataSourceImplementation
           await _client.get(Uri.https(kBaseUrl, kGetUsersEndpoint));
 
       if (response.statusCode != 200) {
-        throw (
-          APIException(
-            message: response.body,
-            statusCode: response.statusCode,
-          ),
+        throw APIException(
+          message: response.body,
+          statusCode: response.statusCode,
         );
       }
 
