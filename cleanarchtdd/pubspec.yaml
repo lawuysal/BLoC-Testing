@@ -38,6 +38,7 @@ dependencies:
   equatable:
   dartz:
   http:
+  bloc:
 
 dev_dependencies:
   flutter_test:
