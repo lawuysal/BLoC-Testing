@@ -16,14 +16,14 @@ class AuthenticationBloc
       : _createUser = createUser,
         _getUsers = getUsers,
         super(AuthenticationInitial()) {
-    on<CreateUserEvent>(_createUserEvent);
-    on<GetUsersEvent>(_getUsersEvent);
+    on<CreateUserEvent>(_createUserEventHandler);
+    on<GetUsersEvent>(_getUsersEventHandler);
   }
 
   final CreateUser _createUser;
   final GetUsers _getUsers;
 
-  FutureOr<void> _createUserEvent(
+  FutureOr<void> _createUserEventHandler(
       CreateUserEvent event, Emitter<AuthenticationState> emit) async {
     emit(const CreatingUserState());
 
@@ -32,8 +32,21 @@ class AuthenticationBloc
       name: event.name,
       avatar: event.avatar,
     ));
+
+    result.fold(
+      (failure) => emit(AuthenticationErrorState(failure.errorMessage)),
+      (success) => emit(const UserCreatedState()),
+    );
   }
 
-  FutureOr<void> _getUsersEvent(
-      GetUsersEvent event, Emitter<AuthenticationState> emit) {}
+  FutureOr<void> _getUsersEventHandler(
+      GetUsersEvent event, Emitter<AuthenticationState> emit) async {
+    emit(const GettingUsersState());
+    final result = await _getUsers();
+
+    result.fold(
+      (failure) => emit(AuthenticationErrorState(failure.errorMessage)),
+      (users) => emit(UsersLoadedState(users)),
+    );
+  }
 }
