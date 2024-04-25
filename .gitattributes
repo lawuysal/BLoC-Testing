@@ -3,3 +3,5 @@
 *.h linguist-detectable=false
 *.cc linguist-detectable=false
 *.cpp linguist-detectable=false
+*.swift linguist-detectable=false
+*.cmake linguist-detectable=false
